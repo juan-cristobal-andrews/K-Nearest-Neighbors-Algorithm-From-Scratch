@@ -1,0 +1,8 @@
+title: K-nearest-neighbors-algorithm-from-scratch
+description: K-Nearest Neighbors Algorithm made from Scratch in R.
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-slate
+
+gems:
+  - jekyll-mentions
