@@ -71,6 +71,7 @@ ggplot() +
 ```
 
 <img src="images/2.png" width="40%" />
+
 Note: we have purposely forgot it's classification colors in order to create a model that's able to guess it
 
 ## 2. K-Nearest Neighbors Algorithm
