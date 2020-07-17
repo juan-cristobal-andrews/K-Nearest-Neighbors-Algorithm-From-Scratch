@@ -261,6 +261,31 @@ print(paste("Accuracy of ",Accuracy*100,"%",sep=""))
 </div></div><div class="output_area"><div class="run_this_cell"></div><div class="prompt"></div><div class="output_subarea output_text output_stream output_stdout"><pre>[1] "Accuracy of 93.33%"
 </pre></div></div></div>
 
+As seen by the results above, we can expect to "guess the correct class" 93% of the times.
+
+### 4.2 Test Data Prediction
+
+<b>4.2.1 Original Colored Test Values</b>
+
+```R
+ggplot() + 
+  geom_tile(data=test,mapping=aes(x, y), alpha=0) +
+  geom_point(data=test,mapping=aes(x,y,colour=Class),size=3 ) + 
+  scale_color_manual(values=colsdot) +
+  xlab('X') + ylab('Y') + ggtitle('Test Data')+
+  scale_x_continuous(expand=c(0,.05))+scale_y_continuous(expand=c(0,.05))
+```
+
+<img src="images/4.png" width="50%" />
+
+
+
+
+
+
+
+
+
 
 
 
