@@ -222,6 +222,23 @@ ggplot() +
 
 As seen in the plot above, we can observe that prediction accuracy of our algorithm is in the range of 88%-95% for all fields and decreasing from K=3 onwards. It appears that we can observe highest consistent accuracy results on K=1 (3 is also a good alternative).
 
+## 4. Predicting based on Top 1 Nearest Neighbors.
+
+### 4.1 Model Accuracy
+
+```R
+# Predictions over our Test sample
+test <- OriginalTest
+K <- 1
+test$Prediction <- mapply(KnnL2Prediction, test$x, test$y,K)
+head(test,10)
+
+# We calculate accuracy
+test$Match <- ifelse(test$Class == test$Prediction, 1, 0)
+Accuracy <- round(sum(test$Match)/nrow(test),4)
+print(paste("Accuracy of ",Accuracy*100,"%",sep=""))
+```
+
 
 
 
