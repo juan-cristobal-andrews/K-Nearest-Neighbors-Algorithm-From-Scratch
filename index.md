@@ -48,5 +48,5 @@ ggplot() +
   #remove grey border from the tile
   scale_x_continuous(expand=c(0,.05))+scale_y_continuous(expand=c(0,.05))
   ```
-![output1](images/1.png)
+![output1](images/1.png | width=50%)
 
