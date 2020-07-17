@@ -132,7 +132,7 @@ KnnL2Prediction <- function(x,y,K) {
 For this we will use a method called "cross validation".
 What this means is that we will make predictions within the training data itself and iterate this on many different values of K for many different folds or permutations of the data.
 
-<img src="images/3.png" width="50%" />
+<img src="images/3.png" />
 
 ```R
 # We will use 5 folds
@@ -218,7 +218,7 @@ ggplot() +
   scale_x_continuous(breaks=seq(1, max(OptimumK$K), 1))
 ```
 
-<img src="images/4.png" width="50%" />
+<img src="images/4.png" />
 
 As seen in the plot above, we can observe that prediction accuracy of our algorithm is in the range of 88%-95% for all fields and decreasing from K=3 onwards. It appears that we can observe highest consistent accuracy results on K=1 (3 is also a good alternative).
 
@@ -276,7 +276,7 @@ ggplot() +
   scale_x_continuous(expand=c(0,.05))+scale_y_continuous(expand=c(0,.05))
 ```
 
-<img src="images/5.png" width="50%" />
+<img src="images/5.png" />
 
 <b>4.2.1 Predicted Colored Test Values</b>
 
@@ -289,7 +289,7 @@ ggplot() +
   scale_x_continuous(expand=c(0,.05))+scale_y_continuous(expand=c(0,.05))
 ```
 
-<img src="images/6.png" width="50%" />
+<img src="images/6.png" />
 
 <b>4.2.1 Decision Limits</b>
 
@@ -314,7 +314,7 @@ ggplot() +
   scale_x_continuous(expand=c(0,0))+scale_y_continuous(expand=c(0,0))
 ```
 
-<img src="images/7.png" width="50%" />
+<img src="images/7.png" />
 
 
 ## 5. Final Thoughts
