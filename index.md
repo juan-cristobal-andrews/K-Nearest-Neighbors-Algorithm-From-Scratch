@@ -29,3 +29,24 @@ OriginalTest <- test
 paste("Training and test sets done")
 ```
 
+### 1.2 Train Data
+
+We can observe that our train data is classified in 3 clusters based on colors.
+
+```R
+# We plot test colored datapoints
+library(ggplot2)
+colsdot <- c("Blue" = "blue", "Red" = "darkred", "Green" = "darkgreen")
+ggplot() + 
+  geom_tile(data=train,mapping=aes(x, y), alpha=0) +
+  ##Ad tiles according to probabilities
+  ##add points
+  geom_point(data=train,mapping=aes(x,y, colour=Class),size=3 ) + 
+  scale_color_manual(values=colsdot) +
+  #add the labels to the plots
+  xlab('X') + ylab('Y') + ggtitle('Train Data')+
+  #remove grey border from the tile
+  scale_x_continuous(expand=c(0,.05))+scale_y_continuous(expand=c(0,.05))
+  ```
+![output1](images/1.png)
+
