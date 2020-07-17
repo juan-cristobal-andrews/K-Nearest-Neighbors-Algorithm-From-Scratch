@@ -48,7 +48,7 @@ ggplot() +
   #remove grey border from the tile
   scale_x_continuous(expand=c(0,.05))+scale_y_continuous(expand=c(0,.05))
   ```
-<img src="images/1.png" width="30%" />
+<img src="images/1.png" width="40%" />
 
 ### 1.2 Test Data
 Even though we actually know the color classification of our test data, we will try to create a model that's able to guess it's true color. For this, we will save our tests colors and compare them with our predictions to calculate our <b>Model Accuracy</b>.
@@ -68,7 +68,7 @@ ggplot() +
   scale_x_continuous(expand=c(0,.05))+scale_y_continuous(expand=c(0,.05))
 ```
 
-<img src="images/1.png" width="30%" />
+<img src="images/2.png" width="40%" />
 Note: we have purposely forgot it's classification colors in order to create a model that's able to guess it
 
 ## 2. K-Nearest Neighbors Algorithm
