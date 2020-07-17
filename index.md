@@ -239,7 +239,7 @@ Accuracy <- round(sum(test$Match)/nrow(test),4)
 print(paste("Accuracy of ",Accuracy*100,"%",sep=""))
 ```
 
-<table>
+<div class="output"><div class="output_area"><div class="run_this_cell"></div><div class="prompt"></div><div class="output_subarea output_html rendered_html"><table>
 <caption>A data.frame: 10 × 4</caption>
 <thead>
 	<tr><th></th><th scope="col">x</th><th scope="col">y</th><th scope="col">Class</th><th scope="col">Prediction</th></tr>
@@ -258,6 +258,8 @@ print(paste("Accuracy of ",Accuracy*100,"%",sep=""))
 	<tr><th scope="row">34</th><td>0.2716716</td><td>0.7307672</td><td>Blue</td><td>Blue</td></tr>
 </tbody>
 </table>
+</div></div><div class="output_area"><div class="run_this_cell"></div><div class="prompt"></div><div class="output_subarea output_text output_stream output_stdout"><pre>[1] "Accuracy of 93.33%"
+</pre></div></div></div>
 
 
 
