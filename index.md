@@ -276,7 +276,53 @@ ggplot() +
   scale_x_continuous(expand=c(0,.05))+scale_y_continuous(expand=c(0,.05))
 ```
 
-<img src="images/4.png" width="50%" />
+<img src="images/5.png" width="50%" />
+
+<b>4.2.1 Predicted Colored Test Values</b>
+
+```R
+ggplot() + 
+  geom_tile(data=test,mapping=aes(x, y), alpha=0) +
+  geom_point(data=test,mapping=aes(x,y,colour=Prediction),size=3 ) + 
+  scale_color_manual(values=colsdot) +
+  xlab('X') + ylab('Y') + ggtitle('Test Data')+
+  scale_x_continuous(expand=c(0,.05))+scale_y_continuous(expand=c(0,.05))
+```
+
+<img src="images/6.png" width="50%" />
+
+<b>4.2.1 Decision Limits</b>
+
+Finally, we can visualize our "decision limits" over our original Test Dataset. This provides a good visual approximation as how well our model is classifying our data and which are the limits of it's classification space.
+
+```R
+# We calculate background colors
+x_coord = seq(min(train[,1]) - 0.02,max(train[,1]) + 0.02,length.out = 40)
+y_coord = seq(min(train[,2]) - 0.02,max(train[,2]) + 0.02, length.out = 40)
+coord = expand.grid(x = x_coord, y = y_coord)
+coord[['prob']] = mapply(KnnL2Prediction, coord$x, coord$y,K)
+
+# We calculate predictions and plot decition area
+colsdot <- c("Blue" = "blue", "Red" = "darkred", "Green" = "darkgreen")
+colsfill <- c("Blue" = "#aaaaff", "Red" = "#ffaaaa", "Green" = "#aaffaa")
+ggplot() + 
+  geom_tile(data=coord,mapping=aes(x, y, fill=prob), alpha=0.8) +
+  geom_point(data=test,mapping=aes(x,y, colour=Class),size=3 ) + 
+  scale_color_manual(values=colsdot) +
+  scale_fill_manual(values=colsfill) +
+  xlab('X') + ylab('Y') + ggtitle('Decision Limits')+
+  scale_x_continuous(expand=c(0,0))+scale_y_continuous(expand=c(0,0))
+```
+
+<img src="images/7.png" width="50%" />
+
+
+## 5. Final Thoughts
+K-Nearest Neighbors is a very simple algorithm which seems to provide very good results. Even though we can clearly classify items by eye here, this model also works in cases of higher dimensions where we cannot simply observe them by naked eye. For this to work, we need to have a Train data sample with <b>existing classifications</b>, which we will later use to classify data around it, meaning it's a <b>supervised machine learning algorithm</b>.
+
+Sadly, this method presents some difficulties in scenarios such as in the presence of complex patterns which cannot be represented by simple radial distance, such as the cases of outliers presence or radial or nested clusters. It also has the problem of performance, since for every classification of a new data point, we need to compare it to every single point in our Train data which is resource and time intensive, since it requires replication and iteration of the complete training dataset.
+
+
 
 
 
