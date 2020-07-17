@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>K-nearest-neighbors-algorithm-from-scratch by juan-cristobal-andrews</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">K-nearest-neighbors-algorithm-from-scratch</h1>
+      <h2 class="project-tagline">K-Nearest Neighbors Algorithm made from Scratch in R.</h2>
+      <a href="https://github.com/juan-cristobal-andrews/K-Nearest-Neighbors-Algorithm-From-Scratch" class="btn">View on GitHub</a>
+      <a href="https://github.com/juan-cristobal-andrews/K-Nearest-Neighbors-Algorithm-From-Scratch/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/juan-cristobal-andrews/K-Nearest-Neighbors-Algorithm-From-Scratch/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h1>
+<p>The idea of this notebook is to explore a step-by-step approach to create a K-Nearest Neighbors Algorithm without the help of any third party library. In practice, this Algorithm should be useful enough for us to classify our data whenever we have already made clusters (in this case color) which will serve as a starting point to find neighbors.</p>
+<div class="highlight highlight-source-r"><pre><span class="pl-c"><span class="pl-c">#</span> Data to learn</span>
+library(<span class="pl-smi">readr</span>)
+<span class="pl-smi">RGB</span> <span class="pl-k">&lt;-</span> as.data.frame(read_csv(<span class="pl-s"><span class="pl-pds">"</span>RGB.csv<span class="pl-pds">"</span></span>))
+<span class="pl-smi">RGB</span><span class="pl-k">$</span><span class="pl-smi">x</span> <span class="pl-k">&lt;-</span> as.numeric(<span class="pl-smi">RGB</span><span class="pl-k">$</span><span class="pl-smi">x</span>)
+<span class="pl-smi">RGB</span><span class="pl-k">$</span><span class="pl-smi">y</span> <span class="pl-k">&lt;-</span> as.numeric(<span class="pl-smi">RGB</span><span class="pl-k">$</span><span class="pl-smi">y</span>)
+print(<span class="pl-s"><span class="pl-pds">"</span>Working data ready<span class="pl-pds">"</span></span>)</pre></div>
+<h3>
+<a id="11-train-and-test-sample-generation" class="anchor" href="#11-train-and-test-sample-generation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1 Train and test sample generation</h3>
+<p>We will create 2 different sample sets:</p>
+<ul>
+<li>
+<b>Training Set:</b> This will contain 75% of our working data, selected randomly. This set will be used to train our model.</li>
+<li>
+<b>Test Set:</b> Remaining 25% of our working data, which will be used to test the accuracy of our model. In other words, once our predictions of this 25% are made, will check the "<i>percentage of correct classifications</i>" by comparing predictions versus real values.</li>
+</ul>
+<div class="highlight highlight-source-r"><pre><span class="pl-c"><span class="pl-c">#</span> Training Dataset</span>
+<span class="pl-v">smp_siz</span> <span class="pl-k">=</span> floor(<span class="pl-c1">0.75</span><span class="pl-k">*</span>nrow(<span class="pl-smi">RGB</span>))
+<span class="pl-v">train_ind</span> <span class="pl-k">=</span> sample(seq_len(nrow(<span class="pl-smi">RGB</span>)),<span class="pl-v">size</span> <span class="pl-k">=</span> <span class="pl-smi">smp_siz</span>)
+<span class="pl-v">train</span> <span class="pl-k">=</span><span class="pl-smi">RGB</span>[<span class="pl-smi">train_ind</span>,]
+
+<span class="pl-c"><span class="pl-c">#</span> Test Dataset</span>
+<span class="pl-v">test</span><span class="pl-k">=</span><span class="pl-smi">RGB</span>[<span class="pl-k">-</span><span class="pl-smi">train_ind</span>,]
+<span class="pl-smi">OriginalTest</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">test</span>
+paste(<span class="pl-s"><span class="pl-pds">"</span>Training and test sets done<span class="pl-pds">"</span></span>)</pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/juan-cristobal-andrews/K-Nearest-Neighbors-Algorithm-From-Scratch">K-nearest-neighbors-algorithm-from-scratch</a> is maintained by <a href="https://github.com/juan-cristobal-andrews">juan-cristobal-andrews</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
