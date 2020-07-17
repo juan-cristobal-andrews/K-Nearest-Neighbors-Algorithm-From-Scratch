@@ -86,6 +86,142 @@ What we want to achieve is for each selected gray point above (our test values),
 - <b>Sort Distances:</b> Once we calculate the distance between every test and training points, we need to sort them in descending order.
 - <b>Selecting top K nearest neighbors:</b> We select the top K nearest points and in order to inspect which category (colors) they belonged in order to assign this category to our tested point. Since we select multiple "neighbors" we might end up with multiple categories, in which case, we can calculate a probability.
 
+```R
+# We define a function for prediction
+KnnL2Prediction <- function(x,y,K) {
+    
+  # Train data
+  Train <- train
+  # This matrix will contain all X,Y values that we want test.
+  Test <- data.frame(X=x,Y=y)
+    
+  # Data normalization
+  Test$X <- (Test$X - min(Train$x))/(min(Train$y) - max(Train$x))
+  Test$Y <- (Test$Y - min(Train$y))/(min(Train$y) - max(Train$y))
+  Train$x <- (Train$x - min(Train$x))/(min(Train$x) - max(Train$x))
+  Train$y <- (Train$y - min(Train$y))/(min(Train$y) - max(Train$y))
+
+  # We will calculate L1 and L2 distances between Test and Train values.
+  VarNum <- ncol(Train)-1
+  L1 <- 0
+  L2 <- 0
+  for (i in 1:VarNum) {
+    L1 <- L1 + (Train[,i] - Test[,i])
+    L2 <- L2 + (Train[,i] - Test[,i])^2
+  }
+    
+  # We will use L2 Distance
+  L2 <- sqrt(L2)
+  
+  # We add labels to distances and sort
+  Result <- data.frame(Label=Train$Class,L1=L1,L2=L2)
+  
+  # We sort data based on score
+  ResultL1 <-Result[order(Result$L1),]
+  ResultL2 <-Result[order(Result$L2),]
+  
+  # Return Table of Possible classifications
+  a <- prop.table(table(head(ResultL2$Label,K)))
+  b <- as.data.frame(a)
+  return(as.character(b$Var1[b$Freq == max(b$Freq)]))
+}
+```
+
+## 3. Finding the correct K paremeter using Cross Validation
+
+For this we will use a method called "cross validation".
+What this means is that we will make predictions within the training data itself and iterate this on many different values of K for many different folds or permutations of the data.
+
+<img src="images/3.png" width="50%" />
+
+```R
+# We will use 5 folds
+FoldSize = floor(0.2*nrow(train)) 
+
+# Fold1
+piece1 = sample(seq_len(nrow(train)),size = FoldSize ) 
+Fold1 = train[piece1,]
+rest = train[-piece1,] 
+
+# Fold2
+piece2 = sample(seq_len(nrow(rest)),size = FoldSize)
+Fold2 = rest[piece2,]
+rest = rest[-piece2,] 
+
+# Fold3
+piece3 = sample(seq_len(nrow(rest)),size = FoldSize)
+Fold3 = rest[piece3,]
+rest = rest[-piece3,] 
+
+# Fold4
+piece4 = sample(seq_len(nrow(rest)),size = FoldSize)
+Fold4 = rest[piece4,]
+rest = rest[-piece4,] 
+
+# Fold5
+Fold5 <- rest
+
+# We make folds
+Split1_Test <- rbind(Fold1,Fold2,Fold3,Fold4)
+Split1_Train <- Fold5
+
+Split2_Test <- rbind(Fold1,Fold2,Fold3,Fold5)
+Split2_Train <- Fold4
+
+Split3_Test <- rbind(Fold1,Fold2,Fold4,Fold5)
+Split3_Train <- Fold3
+
+Split4_Test <- rbind(Fold1,Fold3,Fold4,Fold5)
+Split4_Train <- Fold2
+
+Split5_Test <- rbind(Fold2,Fold3,Fold4,Fold5)
+Split5_Train <- Fold1
+
+# We select best K
+OptimumK <- data.frame(K=NA,Accuracy=NA,Fold=NA)
+results <- train
+
+for (i in 1:5) {
+  if(i == 1) {
+    train <- Split1_Train
+    test <- Split1_Test
+  } else if(i == 2)  {
+    train <- Split2_Train
+    test <- Split2_Test
+  } else if(i == 3)  {
+    train <- Split3_Train
+    test <- Split3_Test
+  } else if(i == 4)  {
+    train <- Split4_Train
+    test <- Split4_Test
+  } else if(i == 5)  {
+    train <- Split5_Train
+    test <- Split5_Test
+  }
+    for(j in 1:20) {
+      results$Prediction <- mapply(KnnL2Prediction, results$x, results$y,j)
+      # We calcuylate accuracy
+      results$Match <- ifelse(results$Class == results$Prediction, 1, 0)
+      Accuracy <- round(sum(results$Match)/nrow(results),4)
+      OptimumK <- rbind(OptimumK,data.frame(K=j,Accuracy=Accuracy,Fold=paste("Fold",i)))
+    
+    }
+}
+```
+
+```R
+OptimumK <- OptimumK [-1,]
+MeanK <- aggregate(Accuracy ~ K, OptimumK, mean)
+ggplot() + 
+  geom_point(data=OptimumK,mapping=aes(K,Accuracy, colour=Fold),size=3 ) +
+  geom_line(aes(K, Accuracy, colour="Moving Average"), linetype="twodash", MeanK) +
+  scale_x_continuous(breaks=seq(1, max(OptimumK$K), 1))
+```
+
+<img src="images/4.png" width="50%" />
+
+As seen in the plot above, we can observe that prediction accuracy of our algorithm is in the range of 88%-95% for all fields and decreasing from K=3 onwards. It appears that we can observe highest consistent accuracy results on K=1 (3 is also a good alternative).
+
 
 
 
