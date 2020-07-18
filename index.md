@@ -239,27 +239,8 @@ Accuracy <- round(sum(test$Match)/nrow(test),4)
 print(paste("Accuracy of ",Accuracy*100,"%",sep=""))
 ```
 
-<div class="output"><div class="output_area"><div class="run_this_cell"></div><div class="prompt"></div><div class="output_subarea output_html rendered_html"><table>
-<caption>A data.frame: 10 × 4</caption>
-<thead>
-	<tr><th></th><th scope="col">x</th><th scope="col">y</th><th scope="col">Class</th><th scope="col">Prediction</th></tr>
-	<tr><th></th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;chr&gt;</th></tr>
-</thead>
-<tbody>
-	<tr><th scope="row">2</th><td>0.2277574</td><td>0.7896829</td><td>Blue</td><td>Blue</td></tr>
-	<tr><th scope="row">8</th><td>0.2790062</td><td>0.6529734</td><td>Blue</td><td>Blue</td></tr>
-	<tr><th scope="row">9</th><td>0.2228817</td><td>0.7565315</td><td>Blue</td><td>Blue</td></tr>
-	<tr><th scope="row">15</th><td>0.2686533</td><td>0.7286139</td><td>Blue</td><td>Blue</td></tr>
-	<tr><th scope="row">18</th><td>0.1849045</td><td>0.8317273</td><td>Blue</td><td>Blue</td></tr>
-	<tr><th scope="row">19</th><td>0.1492896</td><td>0.9566455</td><td>Blue</td><td>Blue</td></tr>
-	<tr><th scope="row">22</th><td>0.1584791</td><td>0.7114385</td><td>Blue</td><td>Blue</td></tr>
-	<tr><th scope="row">26</th><td>0.2601053</td><td>0.8712044</td><td>Blue</td><td>Blue</td></tr>
-	<tr><th scope="row">31</th><td>0.1245759</td><td>0.7645414</td><td>Blue</td><td>Blue</td></tr>
-	<tr><th scope="row">34</th><td>0.2716716</td><td>0.7307672</td><td>Blue</td><td>Blue</td></tr>
-</tbody>
-</table>
-</div></div><div class="output_area"><div class="run_this_cell"></div><div class="prompt"></div><div class="output_subarea output_text output_stream output_stdout"><pre>[1] "Accuracy of 93.33%"
-</pre></div></div></div>
+<img src="images/8.png" width="596" heigth="786" />
+
 
 As seen by the results above, we can expect to "guess the correct class" 93% of the times.
 
