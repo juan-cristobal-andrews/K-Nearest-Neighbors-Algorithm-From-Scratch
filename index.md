@@ -50,7 +50,7 @@ ggplot() +
   #remove grey border from the tile
   scale_x_continuous(expand=c(0,.05))+scale_y_continuous(expand=c(0,.05))
   ```
-<img src="images/1.png" width="60%" />
+<img src="images/1.png" width="420" heigth="420" />
 
 ### 1.2 Test Data
 Even though we actually know the color classification of our test data, we will try to create a model that's able to guess it's true color. For this, we will save our tests colors and compare them with our predictions to calculate our <b>Model Accuracy</b>.
@@ -70,21 +70,21 @@ ggplot() +
   scale_x_continuous(expand=c(0,.05))+scale_y_continuous(expand=c(0,.05))
 ```
 
-<img src="images/2.png" width="60%"  />
+<img src="images/2.png" width="420" heigth="420"  />
 
 Note: we have purposely forgot it's classification colors in order to create a model that's able to guess it
 
 ## 2. K-Nearest Neighbors Algorithm
 
 Below is a step-by-step example of an implementation of this algorithm.
-What we want to achieve is for each selected gray point above (our test values), where we allegedly don't know it's true color, find the nearest neighbor or nearest colored paint (from our train values) and assign the same color as this one.
+What we want to achieve is for each selected gray point above (our test values), where we allegedly don't know it's true color, find the nearest neighbor or nearest colored data point from our train values and assign the same color as this one.
 
 <b>In particular, we need to:</b>
 - <b>Normalize data:</b> even though in this case is not really needed, since all values are in the same scale (decimals between 0 and 1), it's recommended to normalize in order to have a "standard distance metric".
 - <b>Define how we measure distance:</b> We can define the distance between two points in this 2 dimensional data set as the Euclidean distance between them. We will calculate both L1 (sum of absolute differences) and L2 (sum of squared differences) distances, though final results will be calculated using L2 since it's more unforgiving than L1.
 - <b>Calculate Distances:</b> we need to calculate distance between each tested data point and every value within our train dataset. Normalization is key here since for example, in the case of body structure, a distance in weight (1 KG) and height (1 M) is not comparable. For such case we can anticipate a higher deviation in KG than it is on the Meters, leading to incorrect overall distances.
 - <b>Sort Distances:</b> Once we calculate the distance between every test and training points, we need to sort them in descending order.
-- <b>Selecting top K nearest neighbors:</b> We select the top K nearest points and in order to inspect which category (colors) they belonged in order to assign this category to our tested point. Since we select multiple "neighbors" we might end up with multiple categories, in which case, we can calculate a probability.
+- <b>Selecting top K nearest neighbors:</b> We select the top K nearest data points in order to inspect which category (colors) they belonged to, in order to assign this category to our tested point. Since we use multiple "neighbors" we might end up with multiple categories, in which case, we can calculate a probability.
 
 ```R
 # We define a function for prediction
@@ -132,7 +132,7 @@ KnnL2Prediction <- function(x,y,K) {
 For this we will use a method called "cross validation".
 What this means is that we will make predictions within the training data itself and iterate this on many different values of K for many different folds or permutations of the data.
 
-<img src="images/3.png" width="60%"  />
+<img src="images/3.png" width="495" heigth="298"  />
 
 ```R
 # We will use 5 folds
@@ -218,7 +218,7 @@ ggplot() +
   scale_x_continuous(breaks=seq(1, max(OptimumK$K), 1))
 ```
 
-<img src="images/4.png" width="60%" />
+<img src="images/4.png" width="420" heigth="420" />
 
 As seen in the plot above, we can observe that prediction accuracy of our algorithm is in the range of 88%-95% for all fields and decreasing from K=3 onwards. It appears that we can observe highest consistent accuracy results on K=1 (3 is also a good alternative).
 
@@ -276,7 +276,7 @@ ggplot() +
   scale_x_continuous(expand=c(0,.05))+scale_y_continuous(expand=c(0,.05))
 ```
 
-<img src="images/5.png" width="60%" />
+<img src="images/5.png" width="420" heigth="420" />
 
 <b>4.2.1 Predicted Colored Test Values</b>
 
@@ -289,7 +289,7 @@ ggplot() +
   scale_x_continuous(expand=c(0,.05))+scale_y_continuous(expand=c(0,.05))
 ```
 
-<img src="images/6.png" width="60%"  />
+<img src="images/6.png" width="420" heigth="420"  />
 
 <b>4.2.1 Decision Limits</b>
 
@@ -314,14 +314,13 @@ ggplot() +
   scale_x_continuous(expand=c(0,0))+scale_y_continuous(expand=c(0,0))
 ```
 
-<img src="images/7.png" width="60%" />
+<img src="images/7.png" width="420" heigth="420" />
 
 
 ## 5. Final Thoughts
 K-Nearest Neighbors is a very simple algorithm which seems to provide very good results. Even though we can clearly classify items by eye here, this model also works in cases of higher dimensions where we cannot simply observe them by naked eye. For this to work, we need to have a Train data sample with <b>existing classifications</b>, which we will later use to classify data around it, meaning it's a <b>supervised machine learning algorithm</b>.
 
-Sadly, this method presents some difficulties in scenarios such as in the presence of complex patterns which cannot be represented by simple radial distance, such as the cases of outliers presence or radial or nested clusters. It also has the problem of performance, since for every classification of a new data point, we need to compare it to every single point in our Train data which is resource and time intensive, since it requires replication and iteration of the complete training dataset.
-
+Sadly, this method presents some difficulties in scenarios such as in the presence of complex patterns which cannot be represented by simple radial distance, like in the cases of radial or nested clusters. It also has the problem of performance, since for every classification of a new data point, we need to compare it to every single point in our Train data which is resource and time intensive, since it requires replication and iteration of the complete training dataset.
 
 
 
