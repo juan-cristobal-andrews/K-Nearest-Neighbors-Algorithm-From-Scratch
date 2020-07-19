@@ -272,6 +272,8 @@ ggplot() +
 
 <img src="images/6.png" width="420" heigth="420"  />
 
+As seen in the plot above it seems even though our algorithm correctly classified most of the data points, it failed with some of them (marked in red).
+
 <b>4.2.1 Decision Limits</b>
 
 Finally, we can visualize our "decision limits" over our original Test Dataset. This provides a good visual approximation as how well our model is classifying our data and which are the limits of it's classification space.
@@ -296,6 +298,8 @@ ggplot() +
 ```
 
 <img src="images/7.png" width="420" heigth="420" />
+
+As seen above, the colored region represent which areas our algorithm would define as being a "colored data point". It's visible why it failed to correctly clasify some of them.
 
 
 ## 5. Final Thoughts
