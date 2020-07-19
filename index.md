@@ -239,7 +239,7 @@ Accuracy <- round(sum(test$Match)/nrow(test),4)
 print(paste("Accuracy of ",Accuracy*100,"%",sep=""))
 ```
 
-<img src="images/8.png" width="596" heigth="786" />
+<img src="images/8.png" width="333" heigth="439" />
 
 
 As seen by the results above, we can expect to "guess the correct class" 93% of the times.
