@@ -50,7 +50,7 @@ ggplot() +
   #remove grey border from the tile
   scale_x_continuous(expand=c(0,.05))+scale_y_continuous(expand=c(0,.05))
   ```
-<img src="images/1.png" width="420" heigth="420" />
+<img src="images/1.png" width="420"/>
 
 ### 1.2 Test Data
 Even though we actually know the color classification of our test data, we will try to create a model that's able to guess it's true color. For this, we will save our tests colors and compare them with our predictions to calculate our <b>Model Accuracy</b>.
@@ -70,7 +70,7 @@ ggplot() +
   scale_x_continuous(expand=c(0,.05))+scale_y_continuous(expand=c(0,.05))
 ```
 
-<img src="images/2.png" width="420" heigth="420"  />
+<img src="images/2.png" width="420" />
 
 Note: we have purposely forgot it's classification colors in order to create a model that's able to guess it
 
@@ -132,7 +132,8 @@ KnnL2Prediction <- function(x,y,K) {
 For this we will use a method called "cross validation".
 What this means is that we will make predictions within the training data itself and iterate this on many different values of K for many different folds or permutations of the data.
 
-<img src="images/3.png" width="495" heigth="298"  />
+<p align="center"><img src="images/3.png" width="495" /></p>
+
 
 ```R
 # We will use 5 folds
@@ -218,7 +219,7 @@ ggplot() +
   scale_x_continuous(breaks=seq(1, max(OptimumK$K), 1))
 ```
 
-<img src="images/4.png" width="420" heigth="420" />
+<img src="images/4.png" width="420" />
 
 As seen in the plot above, we can observe that prediction accuracy of our algorithm is in the range of 88%-95% for all fields and decreasing from K=3 onwards. It appears that we can observe highest consistent accuracy results on K=1 (3 is also a good alternative).
 
@@ -239,7 +240,7 @@ Accuracy <- round(sum(test$Match)/nrow(test),4)
 print(paste("Accuracy of ",Accuracy*100,"%",sep=""))
 ```
 
-<img src="images/8.png" width="333" heigth="439" />
+<img src="images/8.png" width="333" />
 
 
 As seen by the results above, we can expect to "guess the correct class" 93% of the times.
@@ -257,7 +258,7 @@ ggplot() +
   scale_x_continuous(expand=c(0,.05))+scale_y_continuous(expand=c(0,.05))
 ```
 
-<img src="images/5.png" width="420" heigth="420" />
+<img src="images/5.png" width="420" />
 
 <b>4.2.1 Predicted Colored Test Values</b>
 
@@ -270,7 +271,7 @@ ggplot() +
   scale_x_continuous(expand=c(0,.05))+scale_y_continuous(expand=c(0,.05))
 ```
 
-<img src="images/6.png" width="420" heigth="420"  />
+<img src="images/6.png" width="420" />
 
 As seen in the plot above it seems even though our algorithm correctly classified most of the data points, it failed with some of them (marked in red).
 
@@ -297,7 +298,7 @@ ggplot() +
   scale_x_continuous(expand=c(0,0))+scale_y_continuous(expand=c(0,0))
 ```
 
-<img src="images/7.png" width="420" heigth="420" />
+<img src="images/7.png" width="420" />
 
 As seen above, the colored region represent which areas our algorithm would define as being a "colored data point". It's visible why it failed to correctly clasify some of them.
 
